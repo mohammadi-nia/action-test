@@ -3,7 +3,7 @@ name: test-github-actions
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
     # paths:
     #   - 'web/**'
 
