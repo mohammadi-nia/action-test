@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - 'master'
-    path:
-      - '/web'
+    paths:
+      - 'web/**'
 
 jobs:
   build:
@@ -14,11 +14,21 @@ jobs:
     - name: Deploy
       uses: appleboy/ssh-action@master
       with:
-        host: {'hostname'}
-        port: {'port'}
+        host: 192.168.1.1
+        port: 8080
         username: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           cd /path/to/my-project
           git reset --hard HEAD^
           git pull
+    - name: Build
+      uses: appleboy/ssh-action@master
+      with:
+        host: 192.168.1.1
+        port: 8080
+        username: root
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          cd /path/to/my-project
+          docker compose up --build
